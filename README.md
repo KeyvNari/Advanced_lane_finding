@@ -54,6 +54,8 @@ Overlay of information is done through a function called overlay_lanes_to_image(
 * Add the offset and also the curvature values to the original image
 
 Below is an image of the final result:
+
+
 ![warped_transform](report/overlay.png)
 
 
