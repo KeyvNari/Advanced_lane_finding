@@ -16,7 +16,7 @@ In this section, I will go though the steps to find the lane pixels, calculate t
 ### Thresholding
 In this step, S channel thresholding (HSL) as well as Y channel threshold (YUV) is used to isolate among others the line pixels. Moreover, I use gradient in x and y direction as well as the gradient magntiude to find the lane pixels. In the last step, the combination of these two is used to get the best results. In the image below, the effect of each step is shown for a autobahn image from the project. This step code is in cell number 3 and 4. A function called binary_lanes() is defined to apply these steps to an input image.
 
-![thresholding] (report/threshold.png)
+![thresholding](report/threshold.png)
 
 ### Image wraping
 
@@ -33,13 +33,13 @@ Source | Destination | Corner
 
 and then I used these points to calculate wraping transform M: src -> dst and its inverse M_inv: dst -> src using cv2's getPerspectiveTransform() function. Moreover, I defined a function named warp() which gets an input image and applies the wrapping to it by using cv2's warpPerspective function. In the image below, the result is shown for both original and binary images:
 
-![warped_transform] (report/wraped.png)
+![warped_transform](report/wraped.png)
 
 ### Lane finding and poly fit
 
 Function find_lanes() takes an image as an input and also two more optional inputs, namely polyfits for left and right lanes. It normally applies the undistorting, thresholding and warping functions to an input image first. Then it checks the polyfit inputs, if they are empty it uses the moving_box() function to find the lane pixels. Otherwise, it uses the polyfit inputs to search in the vicinity of the lines designated by these polyfits, by using the function find_in_vicinity(). If the pixels found in this search, are too low or they are too scattered, it will again activate the moving_box() function. To transfer the polyfits for next image process, it saves them as a dictionary using the pickle module of python. In this last feature will be used in the video pipeline, as for single image, this feature comes not in use. Below shows a picture of sliding windows and found pixels as well as fitted lines. Moreover, this function makes use of a function called histogram_max() to find the pixel location for peak value of left and right lanes in lower half of the image.
 
-![fit] (report/fit.png)
+![fit](report/fit.png)
 
 ### Curvature calculation
 Curvature caluclation for each lane is done though a function named measure_curvature_meters(). The function accepts as input left and right lane pixels, recalculates the polyfits in meters and calculates the curvatures based on curvature formular in meters.
@@ -54,7 +54,7 @@ Overlay of information is done through a function called overlay_lanes_to_image(
 * Add the offset and also the curvature values to the original image
 
 Below is an image of the final result:
-![warped_transform] (report/overlay.png)
+![warped_transform](report/overlay.png)
 
 
 
